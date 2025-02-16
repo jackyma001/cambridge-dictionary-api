@@ -75,6 +75,13 @@ app.get("/api/dictionary/:language/:entry", (req, res, next) => {
       // basic
 
       const word = $(".hw.dhw").first().text();
+      
+      // Extract word level
+      const level = $(".epp-xref.dxref")
+        .first()
+        .text()
+        .trim() || "N/A";
+
       const getPos = $(".pos.dpos") // part of speech
         .map((index, element) => {
           return $(element).text();
@@ -198,6 +205,7 @@ app.get("/api/dictionary/:language/:entry", (req, res, next) => {
       } else {
         res.status(200).json({
           word: word,
+          level: level,        // Add this line
           pos: pos,
           verbs: verbs,
           pronunciation: audio,
